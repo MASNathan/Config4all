@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * @desc Config4all - Configuration files reader/ loader
+ * @author André Filipe <andre.r.flip@gmail.com>
+ * @version 0.0.1 - 22-06-2013 16:23:46
+ *     - release into the wild
+ * 
+ * @url https://github.com/ReiDuKuduro/Config4all
+ */
 class Config4all {
 	
 	private static $_me = null;
