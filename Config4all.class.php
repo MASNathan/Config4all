@@ -28,7 +28,9 @@ class Config4all {
 	
 	/**
 	 * Loads the configs on the desired files
-	 * @param args
+	 * @param args Files to load
+	 * @throws Exception When the supposed file path is not a string
+	 * @throws Exception If the file doesn't exist
 	 */
 	public function load()
 	{
@@ -110,7 +112,8 @@ class Config4all {
 	/**
 	 * Imports the data/ configs from a JSON file
 	 * @param string	$filePath
-	 * @throws exception when
+	 * @throws Exception When the extension to load parse JSON is not loaded
+	 * @throws Exception When there is some error at parsing the JSON file
 	 */
 	private function _importJson( $filePath )
 	{
@@ -201,5 +204,38 @@ class Config4all {
 		}
 		
 		return $tmp_config;
+	}
+	
+	/**
+	 * Sets a new config
+	 * @param args Used to set the desired position on the configs array and it's value, the last argument will be the value to set
+	 * @throws Exception If no parameter is passed
+	 * @return obj
+	 */
+	public function set()
+	{
+		$data 	=  func_get_args();
+		$value 	= null;
+		
+		if ( empty( $data ) )
+			throw new Exception( "Missing argument!" );
+		
+		if ( count( $data ) > 1 )
+			$value = array_pop( $data );
+		
+		$data 	= array_reverse( $data );
+		$tmp 	= array();
+		
+		foreach ( $data as $new_position ) {
+			if ( empty( $tmp ) )
+				$tmp = array( $new_position => $value );
+			else
+				$tmp = array( $new_position => $tmp );
+		}
+		
+		//Merging the arrays
+		$this -> _configs = array_replace_recursive( $this -> _configs, $tmp );
+		
+		return self::$_me;
 	}
 }
