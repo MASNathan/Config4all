@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+  <host>localhost</host>
+  <name>config4all</name>
+  <user>root</user>
+  <pass>xpto</pass>
+</database>
