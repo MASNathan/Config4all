@@ -1,9 +1,11 @@
 <?php
 
+echo '<pre>';
+
 require_once 'Config4all.class.php';
 
 $config = Config4all::getInstance();
-/*
+
 //Loading a simple PHP config file, note that the $array on the PHP config file needs to have the same name of the file it self
 var_dump( 'example 1', $config -> load( 'configs/config.php', 'configs/database.php' ) -> get() );
 $config -> clear();
@@ -27,8 +29,6 @@ var_dump( 'example 6 - coming soon' );
 var_dump( 'example 7', $config -> load( 'configs/*.*' ) -> get() );
 $config -> clear();
 
-//*/
-
 $config -> load( 'configs/*.php' );
 
 //Fetching data from configurations
@@ -38,4 +38,15 @@ echo '<br />Random stuff: ' . $config -> get( 'config', 'random_stuff', 'potatoe
 echo '<br />Random stuff: ' . $config -> get( 'config', 'random_stuff', 'php', 'classes' );
 echo '<br />Random stuff: ' . $config -> get( 'config', 'random_stuff', 'php', 'github' );
 
-//Setting
+//Setting some new configurations, and changing some old ones
+$config -> set( 'a', 'b', 'c', 'value' )
+		-> set( 'config', 'username', 'Not Andre Filipe' )
+		-> set( 'database', 'host', 'first', 'localhost' )
+		-> set( 'database', 'host', 'second', 'somehost' )
+		-> set( 'this is a null field' );
+
+echo '<br />Config username: ' . $config -> get( 'config', 'username' );
+echo '<br />Database host: ' . $config -> get( 'database', 'host', 'second' );
+
+var_dump( 'example 8', $config -> get() );
+echo '</pre>';
