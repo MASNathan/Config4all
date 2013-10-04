@@ -1,15 +1,13 @@
 <?php
 
 /**
- * @desc Config4all - Configuration files reader/ loader
+ * Config4all - Configuration files reader/ loader
+ * 
  * @author André Filipe <andre.r.flip@gmail.com>
- * 
- * @link https://github.com/ReiDuKuduro/Config4all
- * @link http://masnathan.users.phpclasses.org/package/8111-PHP-Load-configuration-files-in-multiple-formats.html
- * 
- * @version 0.0.1 - 22-06-2013 16:23:46
- *     - release into the wild
- * 
+ * @link https://github.com/ReiDuKuduro/Config4all Github Repo
+ * @link http://masnathan.users.phpclasses.org/package/8111 PHP Classes
+ * @license	MIT
+ * @version 1.0.0
  */
 class Config4all {
 	

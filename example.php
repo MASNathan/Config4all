@@ -2,7 +2,7 @@
 
 echo '<pre>';
 
-require_once 'Config4all.class.php';
+require_once 'Config4all.php';
 
 $config = Config4all::getInstance();
 

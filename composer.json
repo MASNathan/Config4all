@@ -1,0 +1,21 @@
+{
+    "name": "masnathan/config4all",
+    "type": "library",
+    "description": "This class helps you load your application configs, it supports php, xml, ini and json files.",
+    "keywords": ["config","php","json","xml","ini"],
+    "homepage": "https://github.com/ReiDuKuduro/Config4all",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "André Filipe",
+            "email": "andre.r.flip@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "autoload": {
+        "files": ["Config4all.php"]
+    }
+}
