@@ -1,39 +1,23 @@
 <?php
 
+namespace MASNathan\Tools;
+
 /**
- * Config4all - Configuration files reader/ loader
+ * Config - Configuration files reader/ loader
  * 
  * @author André Filipe <andre.r.flip@gmail.com>
  * @link https://github.com/ReiDuKuduro/Config4all Github Repo
  * @link http://masnathan.users.phpclasses.org/package/8111 PHP Classes
  * @license	MIT
- * @version 1.0.0
+ * @version 1.0.1
  */
-class Config4all {
+class Config {
 	
-	private static $_me = null;
-
 	/**
 	 * Configs are stored here
 	 * @var array
 	 */
 	private $_configs = array();
-	
-	public function __construct() 
-    { 
-    }
-	
-	/**
-	 * Returns it self
-	 * @return obj
-	 */
-	static public function getInstance()
-	{
-		if ( !self::$_me instanceof Config4all )
-			self::$_me = new self();
-		
-		return self::$_me;
-	}
 	
 	/**
 	 * Loads the configs on the desired files
@@ -80,7 +64,7 @@ class Config4all {
 			}
 		}
 		
-		return self::getInstance();
+		return $this;
 	}
 	
 	/**
@@ -245,6 +229,6 @@ class Config4all {
 		//Merging the arrays
 		$this -> _configs = array_replace_recursive( $this -> _configs, $tmp );
 		
-		return self::$_me;
+		return $this;
 	}
 }
