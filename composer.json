@@ -8,14 +8,16 @@
     "authors": [
         {
             "name": "André Filipe",
-            "email": "andre.r.flip@gmail.com",
-            "role": "Developer"
+            "email": "andre.r.flip@gmail.com"
         }
     ],
     "require": {
-        "php": ">=5.3.0"
+        "php": ">=5.4.0",
+        "symfony/yaml": "v2.3.11"
     },
     "autoload": {
-        "files": ["Config4all.php"]
+        "psr-0": {
+            "MASNathan\\Config\\": "src/"
+        }
     }
 }
