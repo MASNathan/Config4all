@@ -1,56 +1,61 @@
-Config4all
-==========
+#Config4all
 
-This class helps you load your application configs, it supports php, xml, ini and json files.
+[![Downloads with Composer](https://poser.pugx.org/masnathan/config4all/downloads.png)](https://packagist.org/packages/masnathan/config4all)
+[![SensioLabs Insight](https://insight.sensiolabs.com/projects/039f5b95-8883-4342-9695-8f86d58fef09/mini.png)](https://insight.sensiolabs.com/projects/039f5b95-8883-4342-9695-8f86d58fef09)
+[![ReiDuKuduro @gittip](http://bottlepy.org/docs/dev/_static/Gittip.png)](https://www.gittip.com/ReiDuKuduro/)
+
+This class helps you load your application configs, it supports php, xml, ini, yml and json files.
 
 It's easy to use, and you can load multiple files with diferent formats at once
 
-Example:
+##How it works
+
+You can check a few config examples [here](tests/configs) 
+
+###Loading and unloading content
 
 ```php
-$config = Config4all::getInstance();
+$config = MASNathan\Config\Config();
 
-//Loading a simple PHP config file, note that the $array on the PHP config file needs to have the same name of the file it self
-var_dump( 'example 1', $config -> load( 'configs/config.php', 'configs/database.php' ) -> get() );
-$config -> clear();
+//You can load as many files as you want, one by one
+$config->load('configs/config.php', 'configs/database.php');
+//or all the files with a certain extension at the same time
+$config->load('configs/*.json');
+//you can even load multiple format files at the same time
+$config->load('configs/*.json', 'configs/*.yml');
+//or can also load multiple files, regardless of the extension
+$config->load('configs/*.*');
 
-//You can load file by file, or you can use this method to load all the files with a certain extension
-var_dump( 'example 2', $config -> load( 'configs/*.php' ) -> get() );
-$config -> clear();
+//This is how you clear all the configurations
+$config->clear();
+```
 
-//Works the same way with xml, json, ini and yml files ( yml files are not yet implemented )
-var_dump( 'example 3', $config -> load( 'configs/*.xml' ) -> get() );
-$config -> clear();
-var_dump( 'example 4', $config -> load( 'configs/*.json' ) -> get() );
-$config -> clear();
-var_dump( 'example 5', $config -> load( 'configs/*.ini' ) -> get() );
-$config -> clear();
-var_dump( 'example 6 - coming soon' );
-//var_dump( 'example 6', $config -> load( 'configs/*.yml' ) -> get() );
-//$config -> clear();
+###Fetching the information
+```php
+//To get a value, you just need to know the path to get there
+//if you want to know my name, just use the get method and pass the configuration file name
+//and the keys to get my name, like this
+echo $config->get('config', 'me', 'name');
 
-//you can also load multiple files, regardless of the extension
-var_dump( 'example 7', $config -> load( 'configs/*.*' ) -> get() );
-$config -> clear();
+//here are some other examples
+echo $config->get('config', 'github');
+echo $config->get('database', 'host');
 
-$config -> load( 'configs/*.php' );
+//if the value that you are trying to get doesn't exist, you'll get a null
+//you can also get the entire structure by calling the method get with no arguments
+var_dump($config->get());
+```
 
-//Fetching data from configurations
-echo '<br />Config username: ' . $config -> get( 'config', 'username' );
-echo '<br />Database host: ' . $config -> get( 'database', 'host' );
-echo '<br />Random stuff: ' . $config -> get( 'config', 'random_stuff', 'potatoes' );
-echo '<br />Random stuff: ' . $config -> get( 'config', 'random_stuff', 'php', 'classes' );
-echo '<br />Random stuff: ' . $config -> get( 'config', 'random_stuff', 'php', 'github' );
+###Setting my own configs
+```php
+//You can also set new configs on the fly, or change existing ones
+$config
+	->set('a', 'b', 'c', 'value')
+	->set('config', 'me', 'name', 'Not Andre Filipe')
+	->set('database', 'host', 'first', 'localhost')
+	->set('database', 'host', 'second', 'somehost')
+	->set('this is a null field');
 
-//Setting some new configurations, and changing some old ones
-$config -> set( 'a', 'b', 'c', 'value' )
-		-> set( 'config', 'username', 'Not Andre Filipe' )
-		-> set( 'database', 'host', 'first', 'localhost' )
-		-> set( 'database', 'host', 'second', 'somehost' )
-		-> set( 'this is a null field' );
-
-echo '<br />Config username: ' . $config -> get( 'config', 'username' );
-echo '<br />Database host: ' . $config -> get( 'database', 'host', 'second' );
-
-var_dump( 'example 8', $config -> get() );
-``
+//This will return 'value'
+echo $config->set('a', 'b', 'c');
+```
