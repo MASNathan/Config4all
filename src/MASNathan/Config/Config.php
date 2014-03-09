@@ -28,14 +28,14 @@ class Config {
 	 */
 	public function load()
 	{
-		$data =  func_get_args();
+		$data  = func_get_args();
 		$files = array();
-		foreach ($data as $value )
-		{
-			if ( !is_string( $value ) )
-				throw new Exception( "Invalid parameter passed on Config4all -> load function. All parameters must be string!" );
+		foreach ($data as $value) {
+			if (!is_string($value)) {
+				throw new \Exception("Invalid parameter passed on Config4all -> load function. All parameters must be string!");
+			}
 			
-			$files = array_merge( $files, glob( $value ) );
+			$files = array_merge($files, glob($value));
 		}
 		
 		foreach ($files as $filepath) {
