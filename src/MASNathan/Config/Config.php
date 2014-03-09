@@ -49,10 +49,12 @@ class Config {
 	
 	/**
 	 * Empty all the loaded configs
+	 * @return Config
 	 */
 	public function clear()
 	{
 		$this->data = [];
+		return $this;
 	}
 	
 	/**
@@ -62,17 +64,18 @@ class Config {
 	 */
 	public function get()
 	{
-		$data =  func_get_args();
-		if ( empty( $data ) )
+		$data = func_get_args();
+		if (empty($data)) {
 			return $this->data;
+		}
 		
 		$tmp_config = $this->data;
-		foreach ( $data as $config_position )
-		{
-			if ( isset( $tmp_config[ $config_position ] ) )
-				$tmp_config = $tmp_config[ $config_position ];
-			else
+		foreach ($data as $config_position) {
+			if (isset($tmp_config[$config_position])) {
+				$tmp_config = $tmp_config[$config_position];
+			} else {
 				return null;
+			}
 		}
 		
 		return $tmp_config;
@@ -81,32 +84,35 @@ class Config {
 	/**
 	 * Sets a new config
 	 * @param args Used to set the desired position on the configs array and it's value, the last argument will be the value to set
-	 * @throws Exception If no parameter is passed
-	 * @return obj
+	 * @return Config
+	 * @throws \Exception If no parameter is passed
 	 */
 	public function set()
 	{
-		$data 	=  func_get_args();
-		$value 	= null;
+		$data  = func_get_args();
+		$value = null;
 		
-		if ( empty( $data ) )
-			throw new Exception( "Missing argument!" );
+		if (empty($data)) {
+			throw new \Exception("Missing argument!");
+		}
 		
-		if ( count( $data ) > 1 )
-			$value = array_pop( $data );
+		if (count($data) > 1) {
+			$value = array_pop($data);
+		}
 		
-		$data 	= array_reverse( $data );
-		$tmp 	= array();
+		$data = array_reverse($data);
+		$tmp  = [];
 		
-		foreach ( $data as $new_position ) {
-			if ( empty( $tmp ) )
-				$tmp = array( $new_position => $value );
-			else
-				$tmp = array( $new_position => $tmp );
+		foreach ($data as $new_position) {
+			if (empty($tmp)) {
+				$tmp = array($new_position => $value);
+			} else {
+				$tmp = [$new_position => $tmp];
+			}
 		}
 		
 		//Merging the arrays
-		$this->data = array_replace_recursive( $this->data, $tmp );
+		$this->data = array_replace_recursive($this->data, $tmp);
 		
 		return $this;
 	}

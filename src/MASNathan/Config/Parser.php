@@ -8,9 +8,22 @@ use MASNathan\Config\Exception\UnsuportedByServer;
 use MASNathan\Config\Exception\ParseError;
 use Symfony\Component\Yaml\Yaml;
 
+/**
+ * Parser - Handler for parsing files
+ * 
+ * @author André Filipe <andre.r.flip@gmail.com>
+ * @link https://github.com/ReiDuKuduro/Config4all Github Repo
+ * @license	MIT
+ * @version 2.0.0
+ */
 trait Parser
 {
-
+	/**
+	 * Returns the parsed contents of a file
+	 * @param string $filepath
+	 * @return array
+	 * @throws UnsupportedFileType If the file extension is diferent than php, ini, json, yml or xml
+	 */
 	protected function getFileContents($filepath)
 	{
 		$fileType = strtolower(pathinfo($filepath, PATHINFO_EXTENSION));
@@ -32,6 +45,12 @@ trait Parser
 		}
 	}
 
+	/**
+	 * Parses the contents from a PHP file
+	 * @param string $filepath
+	 * @return array
+	 * @throws FileNotFound       The file to load does not exist
+	 */
 	protected function getPhpContents($filepath)
 	{
 		if (!file_exists($filepath)) {
@@ -47,8 +66,15 @@ trait Parser
 		$parsedContents = \reset($definedVars);
 
 		return $parsedContents;
-	}	
+	}
 
+	/**
+	 * Parses the contents from a INI file
+	 * @param string $filepath
+	 * @return array
+	 * @throws FileNotFound       The file to load does not exist
+	 * @throws UnsuportedByServer Your server/machine does not have the ini extension installed
+	 */
 	protected function getIniContents($filepath)
 	{
 		if (!file_exists($filepath)) {
@@ -110,6 +136,12 @@ trait Parser
     	}
 	}
 
+	/**
+	 * Parses the contents from a YAML file
+	 * @param string $filepath
+	 * @return array
+	 * @throws FileNotFound       The file to load does not exist
+	 */
 	protected function getYmlContents($filepath)
 	{
 		if (!file_exists($filepath)) {
@@ -121,6 +153,13 @@ trait Parser
 		return $parsedContents;
 	}
 
+	/**
+	 * Parses the contents from a XML file
+	 * @param string $filepath
+	 * @return array
+	 * @throws FileNotFound       The file to load does not exist
+	 * @throws UnsuportedByServer Your server/machine does not have the xml extension installed
+	 */
 	protected function getXmlContents($filepath)
 	{
 		if (!file_exists($filepath)) {
