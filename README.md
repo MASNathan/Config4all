@@ -8,6 +8,24 @@ This class helps you load your application configs, it supports php, xml, ini, y
 
 It's easy to use, and you can load multiple files with diferent formats at once
 
+# How to install via Composer
+
+The recommended way to install is through [Composer](http://composer.org).
+
+```sh
+# Install Composer
+$ curl -sS https://getcomposer.org/installer | php
+
+# Add Config4all as a dependency
+$ php composer.phar require masnathan/config4all:dev-master
+```
+
+Once it's installed, you need to require Composer's autoloader:
+
+```php
+require 'vendor/autoload.php';
+```
+
 ##How it works
 
 You can check a few config examples [here](tests/configs) 
@@ -59,3 +77,9 @@ $config
 //This will return 'value'
 echo $config->set('a', 'b', 'c');
 ```
+
+# License
+
+This library is under the MIT License, see the complete license [here](LICENSE)
+
+###Is your project using `Config4all`? [Let me know](https://github.com/ReiDuKuduro/Config4all/issues/new?title=New%20script%20using%20Config4all&body=Name and Description of your script.)!
