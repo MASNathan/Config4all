@@ -1,10 +1,5 @@
-config:
-  username: "Andre Filipe"
-  password: "xpto"
-  language: "en"
-  serverip: "192.168.0.1"
-database:
-  host: "localhost"
-  name: "config4all"
-  user: "root"
-  pass: "xpto"
+github: "https://github.com/ReiDuKuduro"
+me:
+  name: "Andre"
+  surname: "Filipe"
+  email: "andre.r.flip@gmail.com"

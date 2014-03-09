@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
-  <username>Andre Filipe</username>
-  <password>xpto</password>
-  <language>en</language>
-  <serverip>192.168.0.1</serverip>
+  <github>https://github.com/ReiDuKuduro</github>
+  <me>
+    <name>Andre</name>
+    <surname>Filipe</surname>
+    <email>andre.r.flip@gmail.com</email>
+  </me>
 </config>

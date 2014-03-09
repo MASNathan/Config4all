@@ -29,7 +29,7 @@ $config->load('configs/*.php');
 
 //example 3
 //Works the same way with xml, json, ini and yml files ( yml files are not yet implemented )
-$config->load('configs/*.php');
+$config->load('configs/*.yml');
 //*/
 
 /*
