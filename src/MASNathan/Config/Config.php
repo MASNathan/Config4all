@@ -107,7 +107,7 @@ class Config extends Parser
 			if (empty($tmp)) {
 				$tmp = array($new_position => $value);
 			} else {
-				$tmp = [$new_position => $tmp];
+				$tmp = array($new_position => $tmp);
 			}
 		}
 		
