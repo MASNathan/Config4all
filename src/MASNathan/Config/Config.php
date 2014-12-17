@@ -11,8 +11,8 @@ namespace MASNathan\Config;
  * @license	MIT
  * @version 2.0.0
  */
-class Config {
-	use Parser;
+class Config extends Parser
+{
 
 	/**
 	 * Configs are stored here

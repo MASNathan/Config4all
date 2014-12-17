@@ -16,7 +16,7 @@ use Symfony\Component\Yaml\Yaml;
  * @license	MIT
  * @version 2.0.0
  */
-trait Parser
+class Parser
 {
 	/**
 	 * Returns the parsed contents of a file
