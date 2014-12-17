@@ -18,7 +18,7 @@ class Config {
 	 * Configs are stored here
 	 * @var array
 	 */
-	protected $data = [];
+	protected $data = array();
 	
 	/**
 	 * Loads the configs on the desired files
@@ -53,7 +53,7 @@ class Config {
 	 */
 	public function clear()
 	{
-		$this->data = [];
+		$this->data = array();
 		return $this;
 	}
 	
@@ -101,7 +101,7 @@ class Config {
 		}
 		
 		$data = array_reverse($data);
-		$tmp  = [];
+		$tmp  = array();
 		
 		foreach ($data as $new_position) {
 			if (empty($tmp)) {
