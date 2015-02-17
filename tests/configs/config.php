@@ -1,6 +1,6 @@
 <?php
 
-$config = [
+return [
 	'github' => 'https://github.com/ReiDuKuduro',
 	'me' => [
 		'name'    => 'Andre',
