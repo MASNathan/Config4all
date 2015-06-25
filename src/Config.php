@@ -11,14 +11,14 @@ namespace MASNathan\Config;
  * @license	MIT
  * @version 2.0.0
  */
-class Config {
-	use Parser;
+class Config extends Parser
+{
 
 	/**
 	 * Configs are stored here
 	 * @var array
 	 */
-	protected $data = [];
+	protected $data = array();
 	
 	/**
 	 * Loads the configs on the desired files
@@ -53,7 +53,7 @@ class Config {
 	 */
 	public function clear()
 	{
-		$this->data = [];
+		$this->data = array();
 		return $this;
 	}
 	
@@ -101,13 +101,13 @@ class Config {
 		}
 		
 		$data = array_reverse($data);
-		$tmp  = [];
+		$tmp  = array();
 		
 		foreach ($data as $new_position) {
 			if (empty($tmp)) {
 				$tmp = array($new_position => $value);
 			} else {
-				$tmp = [$new_position => $tmp];
+				$tmp = array($new_position => $tmp);
 			}
 		}
 		
