@@ -57,15 +57,9 @@ class Parser
 			throw new FileNotFound($filepath);
 		}
 
-		include $filepath;
+		$content = include $filepath;
 
-		$definedVars = \get_defined_vars();
-		//removing the filepath entry
-		array_shift($definedVars);
-
-		$parsedContents = \reset($definedVars);
-
-		return $parsedContents;
+		return $content;
 	}
 
 	/**
