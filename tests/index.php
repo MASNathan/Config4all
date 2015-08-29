@@ -12,12 +12,14 @@ $config->read('configs/*.xml');
 
 //$config->write('configs/cache.json');
 
-$config->set('extra.super.extra', 'test');
-$config->set('config.extra', 'test');
+//$config->set('extra.super.extra', 'test');
+//$config->set('config.extra', 'test');
 
 //$config->save('asd');
 
-dump($config->get());
+$config->write();
+
+//dump($config->save('save.php'));
 
 
 dump($config);
