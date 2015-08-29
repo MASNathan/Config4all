@@ -116,6 +116,7 @@ class Config
                 
                 case 'php':
                 case 'ini':
+                case 'json':
                 case 'yml':
                 case 'yaml':
                 case 'neon':
