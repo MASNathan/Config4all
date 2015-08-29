@@ -72,7 +72,7 @@ class Config
         $fileType = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
 
         if ($fileType == 'php') {
-            $contents = "<?php\n\n" . var_export($data, true) . ";\n";
+            $contents = "<?php\n\nreturn " . var_export($data, true) . ";\n";
         } else {
             $contents = Parser::data($data)->setPrettyOutput(true)->to($fileType);
         }
