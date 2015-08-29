@@ -31,6 +31,10 @@
         "symfony/yaml": "^2.7",
         "nette/neon": "^2.3"
     },
+    "suggest": {
+        "symfony/yaml": "For working with YAML files.",
+        "nette/neon": "For working with NEON files."
+    },
     "autoload": {
         "psr-4": {
             "MASNathan\\Config\\": "src"
