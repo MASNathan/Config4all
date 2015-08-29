@@ -68,23 +68,16 @@ class Config
      */
     protected function writeFileData($filePath, array $data)
     {
-        // @todo Check if files exists and create it
-        /*
-        if (!is_writable($filePath)) {
-            throw new FileNotWritable($filePath);
-        }
-        //*/
-
         $fileName = pathinfo($filePath, PATHINFO_FILENAME);
         $fileType = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
 
         if ($fileType == 'php') {
-            // @todo Generate the php code
+            $contents = "<?php\n\n" . var_export($data, true) . ";\n";
         } else {
             $contents = Parser::data($data)->setPrettyOutput(true)->to($fileType);
         }
 
-        return file_put_contents($filePath, $contents);
+        return (bool) file_put_contents($filePath, $contents);
     }
 
 
@@ -146,8 +139,9 @@ class Config
     public function write()
     {
         foreach ($this->files as $filePath => $data) {
-            // @todo Check for errors
-            $this->writeFileData($filePath, $data);
+            if (!$this->writeFileData($filePath, $data)) {
+                throw new \Exception("Something went wrong wile writing to the file '$filePath'");
+            }
         }
     }
     
