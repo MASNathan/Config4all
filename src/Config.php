@@ -33,6 +33,58 @@ class Config
     protected $files = array();
 
     /**
+     * Loads the configs on the desired files
+     * @param args Files to load
+     * @throws \Exception When the supposed file path is not a string
+     * @throws \Exception If the file doesn't exist
+     */
+    public function read()
+    {
+        $data  = func_get_args();
+        $files = array();
+        foreach ($data as $value) {
+            if (!is_string($value)) {
+                throw new \Exception("Invalid parameter. All parameters must be string!");
+            }
+
+            $files = array_merge($files, glob($value));
+        }
+
+        foreach ($files as $filePath) {
+            $fileName = pathinfo($filePath, PATHINFO_FILENAME);
+            $fileType = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
+
+            switch ($fileType) {
+                case 'xml':
+                    $result = $this->readFileData($filePath);
+                    // We need to get the root key so on write we have the xml root key name
+                    $resultKeys = array_keys($result);
+                    $rootKey = reset($resultKeys);
+
+                    $this->data[$fileName] = reset($result);
+                    $this->files[$filePath] = array($rootKey => &$this->data[$fileName]);
+                    break;
+
+                case 'php':
+                case 'ini':
+                case 'json':
+                case 'yml':
+                case 'yaml':
+                case 'neon':
+                    $result = $this->readFileData($filePath);
+                    $this->data[$fileName] = $result;
+                    $this->files[$filePath] = &$this->data[$fileName];
+                    break;
+
+                default:
+                    throw new UnsupportedFileType($fileType);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * Reads and parses data from a file, using the extension to determine the data type
      * @param  string $filePath File path
      * @return array
@@ -61,6 +113,20 @@ class Config
     }
 
     /**
+     * Writes all the configurations and it's changes to it's respective files
+     * @return null
+     * @throws \Exception
+     */
+    public function write()
+    {
+        foreach ($this->files as $filePath => $data) {
+            if (!$this->writeFileData($filePath, $data)) {
+                throw new \Exception("Something went wrong wile writing to the file '$filePath'");
+            }
+        }
+    }
+
+    /**
      * Parses and writes some array to a file, using the extension the select the data type
      * @param  string $filePath File path
      * @param  array  $data     Data to parse and write to file
@@ -78,72 +144,6 @@ class Config
         }
 
         return (bool) file_put_contents($filePath, $contents);
-    }
-
-
-    /**
-     * Loads the configs on the desired files
-     * @param args Files to load
-     * @throws Exception When the supposed file path is not a string
-     * @throws Exception If the file doesn't exist
-     */
-    public function read()
-    {
-        $data  = func_get_args();
-        $files = array();
-        foreach ($data as $value) {
-            if (!is_string($value)) {
-                throw new \Exception("Invalid parameter passed on Config4all -> load function. All parameters must be string!");
-            }
-            
-            $files = array_merge($files, glob($value));
-        }
-
-        foreach ($files as $filePath) {
-            $fileName = pathinfo($filePath, PATHINFO_FILENAME);
-            $fileType = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
-
-            switch ($fileType) {
-                case 'xml':
-                    $result = $this->readFileData($filePath);
-                    // We need to get the root key so on write we have the xml root key name
-                    $resultKeys = array_keys($result);
-                    $rootKey = reset($resultKeys);
-                    
-                    $this->data[$fileName] = reset($result);
-                    $this->files[$filePath] = array($rootKey => &$this->data[$fileName]);
-                    break;
-                
-                case 'php':
-                case 'ini':
-                case 'json':
-                case 'yml':
-                case 'yaml':
-                case 'neon':
-                    $result = $this->readFileData($filePath);
-                    $this->data[$fileName] = $result;
-                    $this->files[$filePath] = &$this->data[$fileName];
-                    break;
-
-                default:
-                    throw new UnsupportedFileType($fileType);
-            }
-        }
-        
-        return $this;
-    }
-
-    /**
-     * Writes all the configurations and it's changes to it's respective files
-     * @return null
-     */
-    public function write()
-    {
-        foreach ($this->files as $filePath => $data) {
-            if (!$this->writeFileData($filePath, $data)) {
-                throw new \Exception("Something went wrong wile writing to the file '$filePath'");
-            }
-        }
     }
     
     /**
@@ -179,7 +179,7 @@ class Config
     
     /**
      * Returns all configs if no param is passed, returns a specific config if it's name is defined
-     * @param args Used to find the desired position on the configs array
+     * @param array args Used to find the desired position on the configs array
      * @return array|string|null
      */
     public function get()
@@ -210,7 +210,7 @@ class Config
     
     /**
      * Sets a new config
-     * @param args Used to set the desired position on the configs array and it's value, the last argument will be the value to set
+     * @param array args Used to set the desired position on the configs array and it's value, the last argument will be the value to set
      * @return Config
      * @throws \Exception If no parameter is passed
      */
