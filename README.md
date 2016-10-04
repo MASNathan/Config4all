@@ -1,39 +1,31 @@
-#Config4all
+# Config4all
 
-[![Downloads with Composer](https://poser.pugx.org/masnathan/config4all/downloads.png)](https://packagist.org/packages/masnathan/config4all)
-[![SensioLabs Insight](https://insight.sensiolabs.com/projects/039f5b95-8883-4342-9695-8f86d58fef09/mini.png)](https://insight.sensiolabs.com/projects/039f5b95-8883-4342-9695-8f86d58fef09)
-[![ReiDuKuduro @gittip](http://bottlepy.org/docs/dev/_static/Gittip.png)](https://www.gittip.com/ReiDuKuduro/)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/masnathan/config4all.svg?style=flat-square)](https://packagist.org/packages/masnathan/config4all)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
+[![Build Status](https://img.shields.io/travis/MASNathan/Config4all/master.svg?style=flat-square)](https://travis-ci.org/MASNathan/Config4all)
+[![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/masnathan/config4all.svg?style=flat-square)](https://scrutinizer-ci.com/g/masnathan/config4all/code-structure)
+[![Quality Score](https://img.shields.io/scrutinizer/g/masnathan/config4all.svg?style=flat-square)](https://scrutinizer-ci.com/g/masnathan/config4all)
+[![Total Downloads](https://img.shields.io/packagist/dt/masnathan/config4all.svg?style=flat-square)](https://packagist.org/packages/masnathan/config4all)
+[![Support via Gittip](https://img.shields.io/gittip/ReiDuKuduro.svg?style=flat-square)](https://gratipay.com/~ReiDuKuduro/)
 
-This class helps you load your application configs, it supports php, xml, ini, yml and json files.
+This class helps you load your application configs, it supports php, xml, ini, yml, neon and json files.
 
 It's easy to use, and you can load multiple files with diferent formats at once
 
-# How to install via Composer
+## Install
 
-The recommended way to install is through [Composer](http://composer.org).
+Via Composer
 
-```sh
-# Install Composer
-$ curl -sS https://getcomposer.org/installer | php
-
-# Add Config4all as a dependency
-$ php composer.phar require masnathan/config4all:dev-master
+``` bash
+$ composer require masnathan/config4all
 ```
 
-Once it's installed, you need to require Composer's autoloader:
+## Usage
 
-```php
-require 'vendor/autoload.php';
-```
+``` php
+use MASNathan\Config\Config;
 
-##How it works
-
-You can check a few config examples [here](tests/configs) 
-
-###Loading and unloading content
-
-```php
-$config = MASNathan\Config\Config();
+$config = new Config();
 
 //You can load as many files as you want, one by one
 $config->load('configs/config.php', 'configs/database.php');
@@ -48,7 +40,7 @@ $config->load('configs/*.*');
 $config->clear();
 ```
 
-###Fetching the information
+##Fetching the information
 ```php
 //To get a value, you just need to know the path to get there
 //if you want to know my name, just use the get method and pass the configuration file name
@@ -64,22 +56,43 @@ echo $config->get('database', 'host');
 var_dump($config->get());
 ```
 
-###Setting my own configs
+##Setting my own configs
 ```php
 //You can also set new configs on the fly, or change existing ones
 $config
-	->set('a', 'b', 'c', 'value')
-	->set('config', 'me', 'name', 'Not Andre Filipe')
-	->set('database', 'host', 'first', 'localhost')
-	->set('database', 'host', 'second', 'somehost')
-	->set('this is a null field');
+    ->set('a', 'b', 'c', 'value')
+    ->set('config', 'me', 'name', 'Not Andre Filipe')
+    ->set('database', 'host', 'first', 'localhost')
+    ->set('database', 'host', 'second', 'somehost')
+    ->set('this is a null field');
 
 //This will return 'value'
 echo $config->set('a', 'b', 'c');
 ```
 
-# License
+## Change log
 
-This library is under the MIT License, see the complete license [here](LICENSE)
+Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
 
-###Is your project using `Config4all`? [Let me know](https://github.com/ReiDuKuduro/Config4all/issues/new?title=New%20script%20using%20Config4all&body=Name and Description of your script.)!
+## Testing
+
+``` bash
+$ composer test
+```
+
+## Contributing
+
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+
+## Security
+
+If you discover any security related issues, please email andre.r.flip@gmail.com instead of using the issue tracker.
+
+## Credits
+
+- [André Filipe](https://github.com/masnathan)
+- [All Contributors](../../contributors)
+
+## License
+
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
